@@ -1,0 +1,184 @@
+openapi: 3.0.0
+info:
+  title: Multi-Tenancy API
+  version: 1.0.0
+  description: API documentation for the multi-tenancy architecture.
+servers:
+  - url: http://localhost:3000
+paths:
+  /create-tenant:
+    post:
+      summary: Create a new tenant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                adminEmail:
+                  type: string
+      responses:
+        '201':
+          description: Tenant created successfully
+        '400':
+          description: Bad request
+  /invite-user:
+    post:
+      summary: Invite a user to a tenant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tenantId:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '200':
+          description: User invited successfully
+        '400':
+          description: Bad request
+  /configure-settings:
+    post:
+      summary: Configure tenant-specific settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tenantId:
+                  type: string
+                settings:
+                  type: object
+      responses:
+        '200':
+          description: Settings configured successfully
+        '400':
+          description: Bad request
+/plugins:
+    post:
+      summary: Submit a new plugin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                version:
+                  type: string
+                description:
+                  type: string
+                developer:
+                  type: string
+                code:
+                  type: string
+      responses:
+        '201':
+          description: Plugin submitted successfully
+        '400':
+          description: Bad request
+        '409':
+          description: Plugin already exists
+    get:
+      summary: List all plugins
+      responses:
+        '200':
+          description: A list of plugins
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    version:
+                      type: string
+                    description:
+                      type: string
+                    developer:
+                      type: string
+  /plugins/{name}:
+    get:
+      summary: Get plugin details
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Plugin details
+        '404':
+          description: Plugin not found
+/plans:
+    get:
+      summary: List subscription plans
+      responses:
+        '200':
+          description: A list of subscription plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+                    features:
+                      type: array
+                      items:
+                        type: string
+  /subscriptions:
+    post:
+      summary: Create a subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                planId:
+                  type: string
+                paymentMethodId:
+                  type: string
+      responses:
+        '201':
+          description: Subscription created successfully
+        '400':
+          description: Bad request
+  /subscriptions/{id}:
+    delete:
+      summary: Cancel a subscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Subscription cancelled successfully
+        '404':
+          description: Subscription not found

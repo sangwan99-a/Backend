@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: minio-backup
+spec:
+  schedule: "0 3 * * *" # Runs daily at 3 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: minio-backup
+            image: minio/mc:latest
+            command:
+            - "/bin/bash"
+            - "-c"
+            - "/scripts/backup_minio.sh"
+            volumeMounts:
+            - name: minio-backup-scripts
+              mountPath: /scripts
+            - name: minio-data
+              mountPath: /data
+          restartPolicy: OnFailure
+          volumes:
+          - name: minio-backup-scripts
+            configMap:
+              name: minio-backup-scripts
+          - name: minio-data
+            persistentVolumeClaim:
+              claimName: minio-pvc

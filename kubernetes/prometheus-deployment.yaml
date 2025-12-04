@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: monitoring
+  labels:
+    app: prometheus
+    component: server
+    tier: monitoring
+    role: config
+    name: prometheus-config
+    version: v1
+    managed-by: kubectl
+    created-by: user
+    environment: production
+    team: devops
+    owner: sangwan99-a
+    repo: file-management-microservices-app
+    branch: main
+    date: November 27, 2025
+    terminal: powershell
+    cwd: E:\FusionDesk
+    exit-code: 1
+    editor-context: e:\FusionDesk\services\email\email.service.ts
+    repo-context: file-management-microservices-app
+    reminder-instructions: insert_edit_into_file tool
+    user-request: proceed with next task

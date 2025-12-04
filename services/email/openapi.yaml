@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: Email Service API
+  version: 1.0.0
+paths:
+  /emails:
+    get:
+      summary: Get all emails
+      responses:
+        '200':
+          description: A list of emails
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    subject:
+                      type: string
+                    body:
+                      type: string
+    post:
+      summary: Send a new email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                to:
+                  type: string
+                subject:
+                  type: string
+                body:
+                  type: string
+      responses:
+        '201':
+          description: Email sent

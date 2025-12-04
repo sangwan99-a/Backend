@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgresql-backup
+spec:
+  schedule: "0 2 * * *" # Runs daily at 2 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: postgresql-backup
+            image: postgres:15
+            env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql-secret
+                  key: password
+            command: ["/bin/sh", "-c"]
+            args:
+            - |
+              pg_dump -h postgresql-service -U postgres fusiondesk > /backups/fusiondesk-$(date +"%Y%m%d%H%M%S").sql;
+              find /backups -type f -name "fusiondesk-*.sql" -mtime +7 -exec rm {} \;;
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backups
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-volume
+            persistentVolumeClaim:
+              claimName: postgresql-backup-pvc

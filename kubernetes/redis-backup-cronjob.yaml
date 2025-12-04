@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: redis-backup
+spec:
+  schedule: "0 2 * * *" # Runs daily at 2 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: redis-backup
+            image: redis:7
+            command:
+            - "/bin/bash"
+            - "-c"
+            - "/scripts/backup_redis.sh"
+            volumeMounts:
+            - name: redis-backup-scripts
+              mountPath: /scripts
+            - name: redis-data
+              mountPath: /data
+          restartPolicy: OnFailure
+          volumes:
+          - name: redis-backup-scripts
+            configMap:
+              name: redis-backup-scripts
+          - name: redis-data
+            persistentVolumeClaim:
+              claimName: redis-pvc

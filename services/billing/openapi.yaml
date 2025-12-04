@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+  title: Billing Service API
+  version: 1.0.0
+  description: API documentation for the Billing Service.
+servers:
+  - url: http://localhost:3002
+paths:
+  /plans:
+    get:
+      summary: List subscription plans
+      responses:
+        '200':
+          description: A list of subscription plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+                    features:
+                      type: array
+                      items:
+                        type: string
+  /subscriptions:
+    post:
+      summary: Create a subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: string
+                planId:
+                  type: string
+                paymentMethodId:
+                  type: string
+      responses:
+        '201':
+          description: Subscription created successfully
+        '400':
+          description: Bad request
+  /subscriptions/{id}:
+    delete:
+      summary: Cancel a subscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Subscription cancelled successfully
+        '404':
+          description: Subscription not found

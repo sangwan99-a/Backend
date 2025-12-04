@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-service-blue
+  labels:
+    app: ai-service
+    version: blue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ai-service
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: ai-service
+        version: blue
+    spec:
+      containers:
+      - name: ai-service
+        image: ai-service:latest
+        ports:
+        - containerPort: 8000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-service-green
+  labels:
+    app: ai-service
+    version: green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ai-service
+      version: green
+  template:
+    metadata:
+      labels:
+        app: ai-service
+        version: green
+    spec:
+      containers:
+      - name: ai-service
+        image: ai-service:latest
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-service
+spec:
+  selector:
+    app: ai-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP
