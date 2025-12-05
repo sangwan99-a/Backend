@@ -7,11 +7,11 @@ server.get("/", async (request, reply) => {
 });
 const start = async () => {
     try {
-        await server.listen({ port: 3003 });
-        console.log("File Management service is running on http://localhost:3003");
+        await server.listen({ port: 3004 });
+        console.log("File Management service is running on http://localhost:3004");
     }
     catch (err) {
-        server.log.error(err);
+        console.error(err);
         process.exit(1);
     }
 };

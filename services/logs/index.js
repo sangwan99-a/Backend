@@ -7,11 +7,11 @@ server.get("/", async (request, reply) => {
 });
 const start = async () => {
     try {
-        await server.listen({ port: 3004 });
-        console.log("Logs service is running on http://localhost:3004");
+        await server.listen({ port: 3005 });
+        console.log("Logs service is running on http://localhost:3005");
     }
     catch (err) {
-        server.log.error(err);
+        console.error(err);
         process.exit(1);
     }
 };
