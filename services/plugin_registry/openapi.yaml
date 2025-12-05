@@ -27,16 +27,16 @@ paths:
                 code:
                   type: string
       responses:
-        '201':
+        "201":
           description: Plugin submitted successfully
-        '400':
+        "400":
           description: Bad request
-        '409':
+        "409":
           description: Plugin already exists
     get:
       summary: List all plugins
       responses:
-        '200':
+        "200":
           description: A list of plugins
           content:
             application/json:
@@ -63,7 +63,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Plugin details
-        '404':
+        "404":
           description: Plugin not found

@@ -22,17 +22,17 @@ spec:
         app: fluentd
     spec:
       containers:
-      - name: fluentd
-        image: fluent/fluentd:v1.15
-        env:
-        - name: FLUENT_ELASTICSEARCH_HOST
-          value: "elasticsearch.logging.svc.cluster.local"
-        - name: FLUENT_ELASTICSEARCH_PORT
-          value: "9200"
-        volumeMounts:
-        - name: config-volume
-          mountPath: /fluentd/etc
+        - name: fluentd
+          image: fluent/fluentd:v1.15
+          env:
+            - name: FLUENT_ELASTICSEARCH_HOST
+              value: "elasticsearch.logging.svc.cluster.local"
+            - name: FLUENT_ELASTICSEARCH_PORT
+              value: "9200"
+          volumeMounts:
+            - name: config-volume
+              mountPath: /fluentd/etc
       volumes:
-      - name: config-volume
-        configMap:
-          name: fluentd-config
+        - name: config-volume
+          configMap:
+            name: fluentd-config

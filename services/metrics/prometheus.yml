@@ -5,7 +5,7 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-          - "localhost:9093"  # Alertmanager address
+            - "localhost:9093" # Alertmanager address
 
 rule_files:
   - "prometheus_alerting_rules.yml"

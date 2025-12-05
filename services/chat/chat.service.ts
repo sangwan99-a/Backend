@@ -1,9 +1,9 @@
-import Fastify from 'fastify';
-import { Kafka } from 'kafkajs';
-import { Pool } from 'pg';
-import Redis from 'ioredis';
-import fastifySwagger from '@fastify/swagger';
-import fastifyJwt from '@fastify/jwt';
+import Fastify from "fastify";
+import { Kafka } from "kafkajs";
+import { Pool } from "pg";
+import Redis from "ioredis";
+import fastifySwagger from "@fastify/swagger";
+import fastifyJwt from "@fastify/jwt";
 
 const fastify = Fastify({ logger: true });
 
@@ -13,43 +13,43 @@ const pool = new Pool({
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
-  port: parseInt(process.env.DB_PORT || '5432', 10),
+  port: parseInt(process.env.DB_PORT || "5432", 10),
 });
 
 // Redis setup
 const redis = new Redis({
   host: process.env.REDIS_HOST,
-  port: parseInt(process.env.REDIS_PORT || '6379', 10),
+  port: parseInt(process.env.REDIS_PORT || "6379", 10),
 });
 
 // Kafka setup
 const kafka = new Kafka({
-  clientId: 'chat-service',
-  brokers: (process.env.KAFKA_BROKERS || '').split(','),
+  clientId: "chat-service",
+  brokers: (process.env.KAFKA_BROKERS || "").split(","),
 });
 const producer = kafka.producer();
-const consumer = kafka.consumer({ groupId: 'chat-service-group' });
+const consumer = kafka.consumer({ groupId: "chat-service-group" });
 
 // JWT setup
 fastify.register(fastifyJwt, {
-  secret: process.env.JWT_SECRET || 'supersecret',
+  secret: process.env.JWT_SECRET || "supersecret",
 });
 
 // Swagger setup
 fastify.register(fastifySwagger, {
-  routePrefix: '/documentation',
+  routePrefix: "/documentation",
   swagger: {
     info: {
-      title: 'Chat Service API',
-      description: 'API documentation for the Chat Service',
-      version: '1.0.0',
+      title: "Chat Service API",
+      description: "API documentation for the Chat Service",
+      version: "1.0.0",
     },
   },
   exposeRoute: true,
 });
 
 // Middleware to verify JWT
-fastify.addHook('onRequest', async (request, reply) => {
+fastify.addHook("onRequest", async (request, reply) => {
   try {
     await request.jwtVerify();
   } catch (err) {
@@ -58,30 +58,30 @@ fastify.addHook('onRequest', async (request, reply) => {
 });
 
 // RESTful API endpoints
-fastify.post('/rooms', async (request, reply) => {
+fastify.post("/rooms", async (request, reply) => {
   // Logic to create chat rooms
 });
 
-fastify.post('/rooms/:roomId/messages', async (request, reply) => {
+fastify.post("/rooms/:roomId/messages", async (request, reply) => {
   // Logic to send messages
 });
 
-fastify.get('/rooms/:roomId/messages', async (request, reply) => {
+fastify.get("/rooms/:roomId/messages", async (request, reply) => {
   // Logic to fetch chat histories with pagination
 });
 
-fastify.put('/rooms/:roomId/messages/:messageId', async (request, reply) => {
+fastify.put("/rooms/:roomId/messages/:messageId", async (request, reply) => {
   // Logic to edit messages
 });
 
-fastify.delete('/rooms/:roomId/messages/:messageId', async (request, reply) => {
+fastify.delete("/rooms/:roomId/messages/:messageId", async (request, reply) => {
   // Logic to delete messages
 });
 
 // Kafka event publishing
 const publishEvent = async (event: any) => {
   await producer.send({
-    topic: 'chat-events',
+    topic: "chat-events",
     messages: [{ value: JSON.stringify(event) }],
   });
 };
@@ -89,10 +89,10 @@ const publishEvent = async (event: any) => {
 // Kafka event consumption
 const consumeEvents = async () => {
   await consumer.connect();
-  await consumer.subscribe({ topic: 'chat-events', fromBeginning: true });
+  await consumer.subscribe({ topic: "chat-events", fromBeginning: true });
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      const event = JSON.parse(message.value?.toString() || '{}');
+      const event = JSON.parse(message.value?.toString() || "{}");
       // Handle consumed events
     },
   });
@@ -103,8 +103,8 @@ const start = async () => {
   try {
     await producer.connect();
     await consumeEvents();
-    await fastify.listen({ port: 3000, host: '0.0.0.0' });
-    console.log('Chat service is running on port 3000');
+    await fastify.listen({ port: 3000, host: "0.0.0.0" });
+    console.log("Chat service is running on port 3000");
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);

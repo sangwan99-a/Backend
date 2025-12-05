@@ -7,7 +7,7 @@ paths:
     get:
       summary: List all files
       responses:
-        '200':
+        "200":
           description: A list of files
           content:
             application/json:
@@ -35,5 +35,5 @@ paths:
                   type: string
                   format: binary
       responses:
-        '201':
+        "201":
           description: File uploaded

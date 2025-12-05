@@ -18,10 +18,10 @@ spec:
         version: stable
     spec:
       containers:
-      - name: ai-service
-        image: ai-service:latest
-        ports:
-        - containerPort: 8000
+        - name: ai-service
+          image: ai-service:latest
+          ports:
+            - containerPort: 8000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -43,10 +43,10 @@ spec:
         version: canary
     spec:
       containers:
-      - name: ai-service
-        image: ai-service:latest
-        ports:
-        - containerPort: 8000
+        - name: ai-service
+          image: ai-service:latest
+          ports:
+            - containerPort: 8000
 ---
 apiVersion: v1
 kind: Service

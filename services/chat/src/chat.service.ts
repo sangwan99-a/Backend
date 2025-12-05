@@ -6,7 +6,11 @@ export class ChatService {
   }
 
   addMessage(content: string) {
-    const message = { id: (this.messages.length + 1).toString(), content, timestamp: new Date().toISOString() };
+    const message = {
+      id: (this.messages.length + 1).toString(),
+      content,
+      timestamp: new Date().toISOString(),
+    };
     this.messages.push(message);
     return message;
   }

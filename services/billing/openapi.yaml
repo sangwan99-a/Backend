@@ -10,7 +10,7 @@ paths:
     get:
       summary: List subscription plans
       responses:
-        '200':
+        "200":
           description: A list of subscription plans
           content:
             application/json:
@@ -46,9 +46,9 @@ paths:
                 paymentMethodId:
                   type: string
       responses:
-        '201':
+        "201":
           description: Subscription created successfully
-        '400':
+        "400":
           description: Bad request
   /subscriptions/{id}:
     delete:
@@ -60,7 +60,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Subscription cancelled successfully
-        '404':
+        "404":
           description: Subscription not found

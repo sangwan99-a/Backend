@@ -7,7 +7,7 @@ paths:
     get:
       summary: Get all messages
       responses:
-        '200':
+        "200":
           description: A list of messages
           content:
             application/json:
@@ -34,5 +34,5 @@ paths:
                 content:
                   type: string
       responses:
-        '201':
+        "201":
           description: Message created

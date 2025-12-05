@@ -4,17 +4,17 @@ metadata:
   name: ai-service
 spec:
   hosts:
-  - "ai-service"
+    - "ai-service"
   http:
-  - route:
-    - destination:
-        host: ai-service-stable
-        subset: stable
-      weight: 90
-    - destination:
-        host: ai-service-canary
-        subset: canary
-      weight: 10
+    - route:
+        - destination:
+            host: ai-service-stable
+            subset: stable
+          weight: 90
+        - destination:
+            host: ai-service-canary
+            subset: canary
+          weight: 10
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
@@ -23,9 +23,9 @@ metadata:
 spec:
   host: ai-service
   subsets:
-  - name: stable
-    labels:
-      version: stable
-  - name: canary
-    labels:
-      version: canary
+    - name: stable
+      labels:
+        version: stable
+    - name: canary
+      labels:
+        version: canary

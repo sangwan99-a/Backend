@@ -37,22 +37,22 @@ spec:
         app: minio
     spec:
       containers:
-      - name: minio
-        image: minio/minio:latest
-        args:
-        - server
-        - /data
-        env:
-        - name: MINIO_ACCESS_KEY
-          value: "minioadmin"
-        - name: MINIO_SECRET_KEY
-          value: "minioadmin"
-        ports:
-        - containerPort: 9000
-        volumeMounts:
-        - mountPath: /data
-          name: minio-data
+        - name: minio
+          image: minio/minio:latest
+          args:
+            - server
+            - /data
+          env:
+            - name: MINIO_ACCESS_KEY
+              value: "minioadmin"
+            - name: MINIO_SECRET_KEY
+              value: "minioadmin"
+          ports:
+            - containerPort: 9000
+          volumeMounts:
+            - mountPath: /data
+              name: minio-data
       volumes:
-      - name: minio-data
-        persistentVolumeClaim:
-          claimName: minio-pvc
+        - name: minio-data
+          persistentVolumeClaim:
+            claimName: minio-pvc

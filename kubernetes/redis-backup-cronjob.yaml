@@ -9,22 +9,22 @@ spec:
       template:
         spec:
           containers:
-          - name: redis-backup
-            image: redis:7
-            command:
-            - "/bin/bash"
-            - "-c"
-            - "/scripts/backup_redis.sh"
-            volumeMounts:
-            - name: redis-backup-scripts
-              mountPath: /scripts
-            - name: redis-data
-              mountPath: /data
+            - name: redis-backup
+              image: redis:7
+              command:
+                - "/bin/bash"
+                - "-c"
+                - "/scripts/backup_redis.sh"
+              volumeMounts:
+                - name: redis-backup-scripts
+                  mountPath: /scripts
+                - name: redis-data
+                  mountPath: /data
           restartPolicy: OnFailure
           volumes:
-          - name: redis-backup-scripts
-            configMap:
-              name: redis-backup-scripts
-          - name: redis-data
-            persistentVolumeClaim:
-              claimName: redis-pvc
+            - name: redis-backup-scripts
+              configMap:
+                name: redis-backup-scripts
+            - name: redis-data
+              persistentVolumeClaim:
+                claimName: redis-pvc
