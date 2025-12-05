@@ -1,5 +1,5 @@
 # Dockerfile for File Management Service
-FROM node:18
+FROM node:25.2.1
 
 WORKDIR /app
 
