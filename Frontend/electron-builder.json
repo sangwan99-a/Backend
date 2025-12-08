@@ -1,0 +1,98 @@
+{
+  "$schema": "https://www.electron.build/schema.json",
+  "appId": "com.fusiondesk.desktop",
+  "productName": "FusionDesk",
+  "directories": {
+    "output": "release",
+    "buildResources": "assets",
+    "asarUnpack": [
+      "dist-electron/**/*",
+      "node_modules/native-addon/**/*"
+    ]
+  },
+  "files": [
+    "dist/**/*",
+    "dist-electron/**/*",
+    "node_modules/**/*",
+    "package.json"
+  ],
+  "extraMetadata": {
+    "main": "dist-electron/main.js",
+    "preload": "dist-electron/preload.js"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32",
+          "arm64"
+        ]
+      },
+      {
+        "target": "msi",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      },
+      {
+        "target": "portable",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "assets/icon.ico",
+    "certificateFile": null,
+    "certificatePassword": null,
+    "signingHashAlgorithms": [
+      "sha256"
+    ],
+    "requestedExecutionLevel": "asInvoker",
+    "artifactName": "FusionDesk-${version}-${arch}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "allowElevation": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "FusionDesk",
+    "installerIcon": "assets/installer-icon.ico",
+    "uninstallerIcon": "assets/uninstaller-icon.ico",
+    "installerHeader": "assets/installer-header.bmp",
+    "installerSidebar": "assets/installer-sidebar.bmp",
+    "uninstallerSidebar": "assets/installer-sidebar.bmp",
+    "license": "LICENSE.txt",
+    "warningIfNotAdmin": true,
+    "perMachine": false,
+    "deleteAppDataOnUninstall": false,
+    "include": "installer.nsi",
+    "script": "installer-scripts/installer.nsi"
+  },
+  "msi": {
+    "upgradeCode": "8cc09e91-4bca-4f8f-9e2f-7b8c8c8c8c8c",
+    "installScope": "perUser",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "FusionDesk",
+    "warningValidExe": true
+  },
+  "portable": {
+    "artifactName": "FusionDesk-${version}-portable.${ext}"
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "sangwan99-a",
+      "repo": "file-management-microservices-app",
+      "protocol": "https",
+      "releaseType": "release"
+    }
+  ],
+  "afterSign": "scripts/notarize.js",
+  "afterPack": "scripts/afterPack.js",
+  "beforeBuild": "scripts/beforeBuild.js"
+}

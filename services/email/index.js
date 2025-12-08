@@ -7,11 +7,11 @@ server.get("/", async (request, reply) => {
 });
 const start = async () => {
     try {
-        await server.listen({ port: 3002 });
-        console.log("Email service is running on http://localhost:3002");
+        await server.listen({ port: 3003 });
+        console.log("Email service is running on http://localhost:3003");
     }
     catch (err) {
-        server.log.error(err);
+        console.error(err);
         process.exit(1);
     }
 };

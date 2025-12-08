@@ -1,6 +1,13 @@
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 
 const server = Fastify();
+
+// Enable CORS for frontend integration
+server.register(cors, {
+  origin: true, // Allow all origins in development
+  credentials: true
+});
 
 server.get("/", async (request, reply) => {
   return { message: "API Gateway is running" };

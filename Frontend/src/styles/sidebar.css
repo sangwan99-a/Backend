@@ -1,0 +1,170 @@
+/* Sidebar Navigation Styles */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--nexara-spacing-md);
+}
+
+/* Sidebar Brand */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--nexara-spacing-md);
+  padding-bottom: var(--nexara-spacing-lg);
+  border-bottom: 1px solid var(--nexara-glass-border);
+  margin-bottom: var(--nexara-spacing-lg);
+}
+
+.sidebar-brand h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--nexara-primary) 0%, var(--nexara-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+/* Navigation Container */
+nav[role="navigation"] {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--nexara-spacing-sm);
+}
+
+/* Navigation Item Group */
+[role="group"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nexara-spacing-xs);
+  padding: var(--nexara-spacing-md) 0;
+}
+
+[role="separator"] {
+  height: 1px;
+  background: var(--nexara-glass-border);
+  margin: var(--nexara-spacing-md) 0;
+}
+
+/* Navigation Item */
+[role="menuitem"],
+[role="menuitemradio"],
+[role="menuitemcheckbox"] {
+  padding: var(--nexara-spacing-md);
+  border-radius: var(--nexara-radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: var(--nexara-spacing-md);
+  cursor: pointer;
+  transition: all var(--nexara-transition-normal);
+  color: var(--nexara-text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+[role="menuitem"]:hover,
+[role="menuitemradio"]:hover,
+[role="menuitemcheckbox"]:hover {
+  background: var(--nexara-glass-hover);
+  color: var(--nexara-text-primary);
+  border-color: rgba(14, 165, 233, 0.2);
+}
+
+[role="menuitem"][aria-checked="true"],
+[role="menuitemradio"][aria-checked="true"],
+[role="menuitem"] [aria-current="page"],
+[aria-current="page"] {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(6, 182, 212, 0.1) 100%);
+  color: var(--nexara-primary);
+  font-weight: 600;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  box-shadow: inset 0 0 10px rgba(14, 165, 233, 0.1);
+}
+
+/* Navigation Icons */
+[role="menuitem"] svg,
+[role="menuitemradio"] svg,
+[role="menuitemcheckbox"] svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.8;
+  transition: all var(--nexara-transition-normal);
+}
+
+[role="menuitem"][aria-checked="true"] svg,
+[role="menuitemradio"][aria-checked="true"] svg,
+[aria-current="page"] svg {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(14, 165, 233, 0.4));
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  padding: var(--nexara-spacing-lg) var(--nexara-spacing-md);
+  margin-top: auto;
+  border-top: 1px solid var(--nexara-glass-border);
+  text-align: center;
+  color: var(--nexara-text-tertiary);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Focus Styles for Accessibility */
+[role="menuitem"]:focus,
+[role="menuitemradio"]:focus,
+[role="menuitemcheckbox"]:focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Keyboard Navigation */
+[role="menuitem"]:focus-visible,
+[role="menuitemradio"]:focus-visible,
+[role="menuitemcheckbox"]:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+}
+
+/* Mobile Drawer Styles */
+@media (max-width: 768px) {
+  .sidebar-nav {
+    padding: 12px;
+  }
+
+  [role="menuitem"],
+  [role="menuitemradio"],
+  [role="menuitemcheckbox"] {
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+}
+
+/* Scrollbar */
+.sidebar-nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: var(--nexara-glass-light);
+  border-radius: var(--nexara-radius-full);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all var(--nexara-transition-normal);
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: var(--nexara-glass-hover);
+  background-clip: content-box;
+}

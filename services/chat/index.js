@@ -7,11 +7,11 @@ server.get("/", async (request, reply) => {
 });
 const start = async () => {
     try {
-        await server.listen({ port: 3001 });
-        console.log("Chat service is running on http://localhost:3001");
+        await server.listen({ port: 3002 });
+        console.log("Chat service is running on http://localhost:3002");
     }
     catch (err) {
-        server.log.error(err);
+        console.error(err);
         process.exit(1);
     }
 };
